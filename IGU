@@ -1,33 +1,68 @@
-from tkinter import *
+from tkinter import*
 marrom = "#5C4033"
+#tela de login
+class telalog:
+    def __init__(self, telai):
+        #classe que serve verificar o login e senha, e caso esteja tudo correto, avançar para o menu
+        class verificadora:
+            def verificar(self):
+                telamenu(tela)
+        #da acesso aos atributos da varificadora ao self.veridicador              
+        self.verificador = verificadora()
+        self.fundo = Frame(telai, width=1200, height= 700,bg= marrom)
+        self.fundo.grid(row= 1, column=0)
+        #Texto "Rumizone"
+        self.rumizone_centro = Label(telai,text="Rumizone", width=0, bg=marrom)
+        self.rumizone_centro.place(x=455, y=50)
+        self.rumizone_centro["font"] = ("Verdana", "34")
+        #textologin
+        self.txtlogin = Label(telai,text="login", width=0, bg=marrom)
+        self.txtlogin.place(x=440, y=125)
+        self.txtlogin["font"] = ("Verdana", "30")
+        #caixa de login
+        self.cxlogin = Entry(telai,text="", width=30)
+        self.cxlogin.place(x=300, y=200)
+        self.cxlogin["font"] = ("Verdana", "15")
+        #textosenha
+        self.txtsenha = Label(telai,text="senha", width=0, bg=marrom)
+        self.txtsenha.place(x=440, y=325)
+        self.txtsenha["font"] = ("Verdana", "30")
+        #caixa de senha
+        self.cxsenha = Entry(telai,text="digite sua senha", width=30)
+        self.cxsenha.place(x=300, y=400)
+        self.cxsenha["font"] = ("Verdana", "15")
+        #botão de verificação
+        self.btlog = Button(telai,text="fazer login", width=0, height= 1)
+        self.btlog.place(x=440, y=500)
+        self.btlog["font"] = ("Verdana", "15")
+        self.btlog["command"] = self.verificador.verificar
+#tela de menu
+class telamenu:
+    def __init__(self, telam):
+        class avançadoraboi:
+            def avançar(self):
+                telaboi(telam)
+        self.avancadorboi = avançadoraboi()
+        self.fundo = Frame(telam, width=1200, height= 700,bg= marrom)
+        self.fundo.grid(row= 1, column=0)
+        self.btboi = Button(telam, image= iconvaca, bg=marrom, width=0, height= 60, overrelief=FLAT, relief= FLAT)
+        self.btboi.place(x=500,y=500)
+        self.btboi["font"] = ("Verdana", "15")
+        self.btboi["command"] = self.avancadorboi.avançar
+class telaboi:
+    def __init__(self,telab):
+        self.fundo = Frame(telab,width=1200, height= 700,bg= marrom)
+        self.fundo.grid(row=1,column=0)
+        self.btv = Button(telab,text="voltar",width=0)
+        self.btv.place(x=1,y=0)
+
+        
+        
+#predefinições padrão da janela         
 tela = Tk()
 tela.title("Rumizone")
-tela.geometry("1000x700")
-#Conteiner do fundo
-fundo_marro = Frame(tela,width=1000,height=700,bg=marrom)
-fundo_marro.grid(row=1,column=0)
-#Texto "Rumizone"
-rumizone_centro = Label(fundo_marro,text="Rumizone", width=0, bg=marrom)
-rumizone_centro.place(x=390, y=50)
-rumizone_centro["font"] = ("Verdana", "34")
-#textologin
-txtlogin = Label(fundo_marro,text="login", width=0, bg=marrom)
-txtlogin.place(x=440, y=125)
-txtlogin["font"] = ("Verdana", "30")
-#caixa de login
-cxlogin = Entry(fundo_marro,text="", width=30)
-cxlogin.place(x=300, y=200)
-cxlogin["font"] = ("Verdana", "15")
-#textosenha
-txtsenha = Label(fundo_marro,text="senha", width=0, bg=marrom)
-txtsenha.place(x=440, y=325)
-txtsenha["font"] = ("Verdana", "30")
-#caixa de senha
-cxsenha = Entry(fundo_marro,text="digite sua senha", width=30)
-cxsenha.place(x=300, y=400)
-cxsenha["font"] = ("Verdana", "15")
-#botão fazer login
-btlog = Button(fundo_marro,text="fazer login", width=0, height= 1)
-btlog.place(x=440, y=500)
-btlog["font"] = ("Verdana", "15")
+tela.geometry("1200x700")
+#imagens
+iconvaca = PhotoImage(file="D:/pedro/Programação/Python/Imagens/icon_vaca.png")
+telalog(tela)
 tela.mainloop()
