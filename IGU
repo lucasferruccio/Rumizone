@@ -4,154 +4,6 @@ branco = "#FFFFFF"
 #tela de login
 class telalog:
     def __init__(self, telai):
-        #classe que serve verificar o login e senha, e caso esteja tudo correto, avançar para o menu
-        class verificadora:
-            def verificar(self):
-                telamenu(tela)
-        #da acesso aos atributos da varificadora ao self.veridicador              
-        self.verificador = verificadora()
-        self.fundo = Frame(telai, width=1200, height= 700,bg= marrom)
-        self.fundo.grid(row= 1, column=0)
-        #Texto "Rumizone"
-        self.rumizone_centro = Label(telai,text="Rumizone", width=0, bg=marrom)
-        self.rumizone_centro.place(x=455, y=50)
-        self.rumizone_centro["font"] = ("Verdana", "34")
-        #textologin
-        self.txtlogin = Label(telai,text="login", width=0, bg=marrom)
-        self.txtlogin.place(x=440, y=125)
-        self.txtlogin["font"] = ("Verdana", "30")
-        #design da caixa de longin
-        self.formatologin = Label(telai,image= barra_de_escrever, bg= marrom, relief= FLAT)
-        self.formatologin.place(x=300, y=180)
-        #caixa de login
-        self.cxlogin = Entry(telai,text="", width=30)
-        self.cxlogin.place(x=313, y=200)
-        self.cxlogin["font"] = ("Verdana", "15")
-        #textosenha
-        self.txtsenha = Label(telai,text="senha", width=0, bg=marrom)
-        self.txtsenha.place(x=440, y=325)
-        self.txtsenha["font"] = ("Verdana", "30")
-        #design da caixa de longin
-        self.formatologin2 = Label(telai,image= barra_de_escrever, bg= marrom, relief= FLAT)
-        self.formatologin2.place(x=300, y=380)
-        #caixa de senha
-        self.cxsenha = Entry(telai,text="digite sua senha", width=30)
-        self.cxsenha.place(x=313, y=400)
-        self.cxsenha["font"] = ("Verdana", "15")
-        #botão de verificação
-        self.btlog = Button(telai,text="fazer login", width=0, height= 1)
-        self.btlog.place(x=440, y=500)
-        self.btlog["font"] = ("Verdana", "15")
-        self.btlog["command"] = self.verificador.verificar
-#tela de menu
-class telamenu:
-    def __init__(self, telam):
-        class avancardoraconta:
-            def avancar(self):
-                telaconta(telam)
-        class avancadoraboi:
-            def avancar(self):
-                telaboi(telam)
-        class avancadoramonitoramento:
-            def avancar(self):
-                telamonitoramento(telam)
-        class avancadorarendimento:
-            def avancar(self):
-                telaredimento(telam)
-        #dando acesso as classes para trasitar entre as janelas
-        self.avancadorconta = avancardoraconta()       
-        self.avancadorboi = avancadoraboi()
-        self.avancadormonitoramento = avancadoramonitoramento()
-        self.avancadorrendimento = avancadorarendimento()
-
-        self.fundo = Frame(telam, width=1200, height= 700,bg= marrom)
-        self.fundo.grid(row= 1, column=0)
-        self.btconta = Button(telam, image=caixa_conta,bg=marrom,overrelief=FLAT, relief= FLAT)
-        self.btconta.place(x=150,y=30)
-        self.btconta["command"] = self.avancadorconta.avancar
-        #botão tela animais
-        self.btboi = Button(telam, image=caixa_vaca, bg=marrom, overrelief=FLAT, relief= FLAT)
-        self.btboi.place(x=500,y=30)
-        self.btboi["font"] = ("Verdana", "15")
-        self.btboi["command"] = self.avancadorboi.avancar
-        #botão tela monitoramento
-        self.btmonitoramento = Button(telam, image=caixa_monitoramento, bg=marrom, overrelief=FLAT, relief= FLAT)
-        self.btmonitoramento.place(x=150,y=340)
-        self.btmonitoramento["command"] = self.avancadormonitoramento.avancar
-        #botão tela rendimento
-        self.btrendimento = Button(telam, image=caixa_rendimento, bg=marrom, overrelief=FLAT, relief= FLAT)
-        self.btrendimento.place(x=500,y=340)
-        self.btrendimento["command"] = self.avancadorrendimento.avancar
-class telaconta:
-    def __init__(self,telac):
-        #classe para voltar para o menu
-        class voltadora:
-            def voltar(self):
-                telamenu(telac)
-        self.voltador = voltadora()
-        #fundo
-        self.fundo= Frame(telac,width=1200, height= 700,bg= marrom)
-        self.fundo.grid(row=1,column=0)
-        #botão para voltar para o menu
-        self.btv = Button(telac,text="voltar",width=0)
-        self.btv.place(x=1,y=0)
-        self.btv["command"] = self.voltador.voltar
-class telaboi:
-    def __init__(self,telab):
-        class voltadora:
-            def voltar(self):
-                telamenu(telab)
-        self.voltador = voltadora()
-        self.fundo = Frame(telab,width=1200, height= 700,bg= marrom)
-        self.fundo.grid(row=1,column=0)
-        self.btv = Button(telab,text="voltar",width=0)
-        self.btv.place(x=1,y=0)
-        self.btv["command"] = self.voltador.voltar
-class telamonitoramento:
-    def __init__(self,telamoni):
-        class voltadora:
-            def voltar(self):
-                telamenu(telamoni)
-        self.voltador = voltadora()
-        self.fundo = Frame(telamoni,width=1200, height= 700,bg= marrom)
-        self.fundo.grid(row=1,column=0)
-        self.btv = Button(telamoni,text="voltar",width=0)
-        self.btv.place(x=1,y=0)
-        self.btv["command"] = self.voltador.voltar
-class telaredimento:
-    def __init__(self,telar):
-        class voltadora:
-            def voltar(self):
-                telamenu(telar)
-        self.voltador = voltadora()
-        self.fundo = Frame(telar,width=1200, height= 700,bg= marrom)
-        self.fundo.grid(row=1,column=0)
-        self.btv = Button(telar,text="voltar",width=0)
-        self.btv.place(x=1,y=0)
-        self.btv["command"] = self.voltador.voltar
-#predefinições padrão da janela         
-tela = Tk()
-tela.title("Rumizone")
-tela.geometry("1200x700")
-#imagens
-caixa_conta = PhotoImage(file="d:/pedro/Programação/Python/Imagens/caixa conta.png")
-caixa_vaca = PhotoImage(file="d:/pedro/Programação/Python/Imagens/caixa_boi.png")
-caixa_monitoramento = PhotoImage(file="d:/pedro/Programação/Python/Imagens/caixa monitoramento.png")
-caixa_rendimento = PhotoImage(file="d:/pedro/Programação/Python/Imagens/caixa monitoramento.png")
-iconvaca = PhotoImage(file="D:/pedro/Programação/Python/Imagens/icon_vaca.png")
-barra_de_escrever = PhotoImage(file="D:/pedro/Programação/Python/Imagens/barra.png")
-telalog(tela)
-tela.mainloop()
-
-
-
-----------------------------------------------------------
-from tkinter import*
-marrom = "#5C4033"
-branco = "#FFFFFF"
-#tela de login
-class telalog:
-    def __init__(self, telai):
         self.fundo = Frame(telai, width=1200, height= 700,bg= marrom)
         self.fundo.grid(row= 1, column=0)
         #Texto "Rumizone"
@@ -191,8 +43,6 @@ class telalog:
 #tela de menu
 class telamenu:
     def __init__(self, telam):
-           
-
         self.fundo = Frame(telam, width=1200, height= 700,bg= marrom)
         self.fundo.grid(row= 1, column=0)
         self.btconta = Button(telam, image=caixa_conta,bg=marrom,overrelief=FLAT, relief= FLAT)
@@ -211,61 +61,53 @@ class telamenu:
         self.btrendimento = Button(telam, image=caixa_rendimento, bg=marrom, overrelief=FLAT, relief= FLAT)
         self.btrendimento.place(x=500,y=340)
         self.btrendimento["command"] = self.avancarrendimento
-     def avancarconta(self):
-        telaconta(telam)
+    def avancarconta(self):
+        telaconta(tela)
     def avancaranimais(self):
-        telaboi(telam)
-     def avancarmonitoramento(self):
-        telamonitoramento(telam)
+        telaboi(tela)
+    def avancarmonitoramento(self):
+        telamonitoramento(tela)
     def avancarrendimento(self):
-        telaredimento(telam)
+        telaredimento(tela)
+
 class telaconta:
     def __init__(self,telac):
-        #classe para voltar para o menu
-        class voltadora:
-            def voltar(self):
-                telamenu(telac)
-        self.voltador = voltadora()
         #fundo
         self.fundo= Frame(telac,width=1200, height= 700,bg= marrom)
         self.fundo.grid(row=1,column=0)
         #botão para voltar para o menu
         self.btv = Button(telac,text="voltar",width=0)
         self.btv.place(x=1,y=0)
-        self.btv["command"] = self.voltador.voltar
+        self.btv["command"] = self.voltar
+    def voltar(self):
+        telamenu(tela)
 class telaboi:
     def __init__(self,telab):
-        class voltadora:
-            def voltar(self):
-                telamenu(telab)
-        self.voltador = voltadora()
         self.fundo = Frame(telab,width=1200, height= 700,bg= marrom)
         self.fundo.grid(row=1,column=0)
         self.btv = Button(telab,text="voltar",width=0)
         self.btv.place(x=1,y=0)
-        self.btv["command"] = self.voltador.voltar
+        self.btv["command"] = self.voltar
+    def voltar(self):
+        telamenu(tela)
 class telamonitoramento:
     def __init__(self,telamoni):
-        class voltadora:
-            def voltar(self):
-                telamenu(telamoni)
-        self.voltador = voltadora()
         self.fundo = Frame(telamoni,width=1200, height= 700,bg= marrom)
         self.fundo.grid(row=1,column=0)
         self.btv = Button(telamoni,text="voltar",width=0)
         self.btv.place(x=1,y=0)
-        self.btv["command"] = self.voltador.voltar
+        self.btv["command"] = self.voltar
+    def voltar(self):
+        telamenu(tela)
 class telaredimento:
     def __init__(self,telar):
-        class voltadora:
-            def voltar(self):
-                telamenu(telar)
-        self.voltador = voltadora()
         self.fundo = Frame(telar,width=1200, height= 700,bg= marrom)
         self.fundo.grid(row=1,column=0)
         self.btv = Button(telar,text="voltar",width=0)
         self.btv.place(x=1,y=0)
-        self.btv["command"] = self.voltador.voltar
+        self.btv["command"] = self.voltar
+    def voltar(self):
+        telamenu(tela)
 #predefinições padrão da janela         
 tela = Tk()
 tela.title("Rumizone")
