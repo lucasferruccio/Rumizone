@@ -30,12 +30,13 @@ def cadastrar(nome, cargo, cpf, email, endereço, fazenda, login, senha):
                 aux  = "DEFAULT, '"+ nome + "', '" + cargo + "', '" + cpf + "', '" + email + "', '" + endereço + "', " + str(fazenda) + ", '" + login + "', '" + senha + "'"
                 valores.append(aux)
                 insert(valores, 'usuario')
+                return "cadastrado"
             else:
-                print("Username já cadastrado!")
+                return "Username já cadastrado!"
         else:
-            print("Usuário já cadastrado!")
+            return "Usuário já cadastrado!"
     else:
-        print("Fazenda  não cadastrada!")
+        return "Fazenda  não cadastrada!"
 
 
 # Lógica para login de usuário:
@@ -48,17 +49,8 @@ def logar(login, senha):
         senha_banco = formatacao(select("senha", "usuario", "login=" + "'" + login + "'"))
         # Checa se a senha bate com o do banco de dados
         if senha in senha_banco:
-            print("Logado!")
+            return "Logado!"
         else:
-            print("Senha Errada!")
+            return "Senha Errada!"
     else:
-        print("username não cadastrado!")
-
-
-login = "lucasferruccio14"
-senha = "123456"
-
-try:
-    logar(login, senha)
-except:
-    print("Não foi possível")
+        return "username não cadastrado!"
