@@ -49,8 +49,8 @@ def logar(login, senha):
         senha_banco = formatacao(select("senha", "usuario", "login=" + "'" + login + "'"))
         # Checa se a senha bate com o do banco de dados
         if senha in senha_banco:
-            return "Logado!"
+            return True
         else:
-            return "Senha Errada!"
+            print("Senha Errada!")
     else:
-        return "username não cadastrado!"
+        print("username não cadastrado!")
