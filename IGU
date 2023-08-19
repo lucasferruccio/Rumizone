@@ -1,6 +1,8 @@
 from customtkinter import *
 from PIL import *
 from MySQLdb import*
+from crud import *
+from login_cadastro import*
 marrom = "#5C4033"
 branco = "#FFFFFF"
 #tela de login
@@ -28,13 +30,19 @@ class telalog:
         self.cxsenha = CTkEntry(telai, width=300, height=30)
         self.cxsenha.place(x=313, y=400)
         self.cxsenha["font"] = ("Verdana", "15")
+        #variaveis de login e senha
+        self.login = self.cxlogin.get()
+        self.senha = self.cxsenha.get()
         #botão de verificação
         self.btlog = CTkButton(telai,text="fazer login", width=0, height= 1, command= self.verificar)
         self.btlog.place(x=440, y=500)
         self.btlog["font"] = ("Verdana", "15")
     #verificar as informações de login
     def verificar(self):
-        telamenu(tela)
+        if logar(self.login, self.senha) == True:
+            telamenu(tela)
+        else:
+            print("errado")
 #tela de menu
 class telamenu:
     def __init__(self, telam):
