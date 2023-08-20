@@ -6,7 +6,7 @@ tela = CTk()
 tela.geometry("1200x700")
 frame = CTkFrame(tela, width=1200, height= 700)
 frame.grid(row = 0, column = 0)
-def entrar(info):
+def janela_vaca(info):
     telavaca = CTkToplevel()
     telavaca.title("vacas")
     telavaca.geometry("300x600")
@@ -31,7 +31,6 @@ ids_vacas = [id[0] for id in select("id_vaca", "vacas")]
 for aux1 in range(len(ids_vacas)):
     info  = botao_vaca(ids_vacas[aux1])
     info_completa = info_vaca(info[0])
-    print(info_completa)
-    btvaca = CTkButton(frame,text=("Identificação: " + str(info[0]) + "\n" + "Comportamento: " + info[1] + "\n" + "Saude: " + info[2]), command=lambda aux2 = info_completa: entrar(aux2))
+    btvaca = CTkButton(frame,text=("Identificação: " + str(info[0]) + "\n" + "Comportamento: " + info[1] + "\n" + "Saude: " + info[2]), command=lambda aux2 = info_completa: janela_vaca(aux2))
     btvaca.grid(row=0, column = aux1)
 tela.mainloop()
