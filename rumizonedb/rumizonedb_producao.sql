@@ -16,36 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `usuario`
+-- Table structure for table `producao`
 --
 
-DROP TABLE IF EXISTS `usuario`;
+DROP TABLE IF EXISTS `producao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuario` (
-  `id_usuario` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `cargo` varchar(45) NOT NULL,
-  `cpf` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `endereco` varchar(200) NOT NULL,
-  `fazenda` int NOT NULL,
-  `login` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `cpf_UNIQUE` (`cpf`),
-  UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `producao` (
+  `id_prod` int NOT NULL AUTO_INCREMENT,
+  `id_fazenda` int NOT NULL,
+  `id_vaca` int NOT NULL,
+  `producao` int NOT NULL,
+  `data` datetime NOT NULL,
+  PRIMARY KEY (`id_prod`),
+  UNIQUE KEY `id_prod_UNIQUE` (`id_prod`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usuario`
+-- Dumping data for table `producao`
 --
 
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Lucas','Operador','12345678901','email@email.com.br','Rua 1 do lado da rua 2',1,'lucaspaiva','123456'),(10,'Lucas','Operador','12345778901','email@email.com.br','Rua 1 do lado da rua 2',1,'lucasferruccio','123456'),(12,'Lucas','Operador','12345978901','email@email.com.br','Rua 1 do lado da rua 2',1,'lucasferruccio2','opaaaa');
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+LOCK TABLES `producao` WRITE;
+/*!40000 ALTER TABLE `producao` DISABLE KEYS */;
+INSERT INTO `producao` VALUES (2,1,1,5,'2023-08-16 00:00:00'),(3,1,1,7,'2023-08-15 00:00:00'),(4,1,1,11,'2023-08-14 00:00:00');
+/*!40000 ALTER TABLE `producao` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-20  9:58:26
+-- Dump completed on 2023-08-20  9:58:27

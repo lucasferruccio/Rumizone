@@ -16,36 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `usuario`
+-- Table structure for table `vacas`
 --
 
-DROP TABLE IF EXISTS `usuario`;
+DROP TABLE IF EXISTS `vacas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuario` (
-  `id_usuario` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `cargo` varchar(45) NOT NULL,
-  `cpf` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `endereco` varchar(200) NOT NULL,
-  `fazenda` int NOT NULL,
-  `login` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `cpf_UNIQUE` (`cpf`),
-  UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `vacas` (
+  `id_vaca` int NOT NULL AUTO_INCREMENT,
+  `fazenda_id` int NOT NULL,
+  `manejo` varchar(50) NOT NULL,
+  `comida` int NOT NULL,
+  `peso` int NOT NULL,
+  `comportamento` varchar(10) NOT NULL,
+  `vacinas` varchar(100) NOT NULL,
+  `saude` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_vaca`),
+  UNIQUE KEY `idvacas_UNIQUE` (`id_vaca`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usuario`
+-- Dumping data for table `vacas`
 --
 
-LOCK TABLES `usuario` WRITE;
-/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Lucas','Operador','12345678901','email@email.com.br','Rua 1 do lado da rua 2',1,'lucaspaiva','123456'),(10,'Lucas','Operador','12345778901','email@email.com.br','Rua 1 do lado da rua 2',1,'lucasferruccio','123456'),(12,'Lucas','Operador','12345978901','email@email.com.br','Rua 1 do lado da rua 2',1,'lucasferruccio2','opaaaa');
-/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+LOCK TABLES `vacas` WRITE;
+/*!40000 ALTER TABLE `vacas` DISABLE KEYS */;
+INSERT INTO `vacas` VALUES (3,1,'cocho1',10,10,'bom','Em dia','Boa'),(4,1,'Atrasado',10,100,'padrão','atrasadas','de boa');
+/*!40000 ALTER TABLE `vacas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

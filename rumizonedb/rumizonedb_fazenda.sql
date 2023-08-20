@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `rumizonedb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `rumizonedb`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: rumizonedb
@@ -37,7 +35,7 @@ CREATE TABLE `fazenda` (
 
 LOCK TABLES `fazenda` WRITE;
 /*!40000 ALTER TABLE `fazenda` DISABLE KEYS */;
-INSERT INTO `fazenda` VALUES (1,'Fazenda do paiva'),(2,'Fazenda da carol');
+INSERT INTO `fazenda` VALUES (1,'Fazenda São Agostinho'),(2,'Rancho da Serra');
 /*!40000 ALTER TABLE `fazenda` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-17 12:52:21
+-- Dump completed on 2023-08-20  9:58:27
