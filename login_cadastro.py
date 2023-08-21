@@ -87,95 +87,114 @@ class telaconta:
     def voltar(self):
         telamenu(tela)
 class telaboi:
-    def janela_vaca(self, info, telaJanela):
-    #Atualiza os dados das vacas. OBS: Só atualiza se o usuario preencher todos as caixas
-        def atualizar():
-            atualizar_vaca(info[0], entry_manejo.get(), entry_comida.get(), entry_peso.get(),
-                        entry_comp.get(), entry_vacinas.get(), entry_saude.get())
+    def __init__(self, telavaca1):
+        self.fundo2= CTkFrame(telavaca1,width=1200, height= 700,fg_color = marrom)
+        self.fundo2.grid(row=0,column=0)
+        #botão para voltar para o menu
+        self.btv = CTkButton(self.fundo2,text="voltar",width=0, command= self.voltar)
+        self.btv.place(x=1,y=0)
+        def janela_vaca(info):
+            #Atualiza os dados das vacas. OBS: Só atualiza se o usuario preencher todos as caixas
+            def atualizar():
+                atualizar_vaca(info[0], self.entry_manejo.get(), self.entry_comida.get(), self.entry_peso.get(),
+                            self.entry_comp.get(), self.entry_vacinas.get(), self.entry_saude.get())
 
-        self.telavaca = CTkToplevel()
-        self.telavaca.title("vacas")
-        self.telavaca.geometry("900x270")
-        self.fundo = CTkFrame(self.telavaca)
-        self.fundo.grid(row = 0, column = 0)
+            self.telavaca = CTkToplevel()
+            self.telavaca.title("vacas")
+            self.telavaca.geometry("900x270")
+            self.fundo = CTkFrame(self.telavaca)
+            self.fundo.grid(row = 0, column = 0)
 
-        #Primeira linha, informando oq é cada coluna
+            #Primeira linha, informando oq é cada coluna
 
-        self.col1 = CTkLabel(self.fundo,width=300, text= "Informação", height=30)
-        self.col1.grid(row=0, column = 0)
-        self.col2 = CTkLabel(self.fundo,width=300, text= "Atual", height=30)
-        self.col2.grid(row=0, column = 1)
-        self.col3 = CTkLabel(self.fundo,width=300, text= "Novos Valores", height=30)
-        self.col3.grid(row=0, column = 2)
+            self.col1 = CTkLabel(self.fundo,width=300, text= "Informação", height=30)
+            self.col1.grid(row=0, column = 0)
+            self.col2 = CTkLabel(self.fundo,width=300, text= "Atual", height=30)
+            self.col2.grid(row=0, column = 1)
+            self.col3 = CTkLabel(self.fundo,width=300, text= "Novos Valores", height=30)
+            self.col3.grid(row=0, column = 2)
 
-        #Exibe o codigo de identficação da vaca na tela
+            #Exibe o codigo de identficação da vaca na tela
 
-        self.cod = CTkLabel(self.fundo,width=300, text= "Código de Identificação:", height=30)
-        self.cod.grid(row=1, column = 0)
-        entry_cod = CTkLabel(self.fundo,width=300, text= info[0], height=30)
-        entry_cod.grid(row=1, column = 1)
+            self.cod = CTkLabel(self.fundo,width=300, text= "Código de Identificação:", height=30)
+            self.cod.grid(row=1, column = 0)
+            self.entry_cod = CTkLabel(self.fundo,width=300, text= info[0], height=30)
+            self.entry_cod.grid(row=1, column = 1)
 
-        #Exibe como se encontra o estado de manejo da vaca na tela
+            #Exibe como se encontra o estado de manejo da vaca na tela
 
-        self.manejo1 = CTkLabel(self.fundo,width=300, text= "Manejo:", height=30)
-        self.manejo1.grid(row=2, column = 0)
-        self.manejo2 = CTkLabel(self.fundo,width=300, text= info[2], height=30)
-        self.manejo2.grid(row=2, column = 1)
-        entry_manejo = CTkEntry(self.fundo, placeholder_text=info[2])
-        entry_manejo.grid(row=2, column = 2)
+            self.manejo1 = CTkLabel(self.fundo,width=300, text= "Manejo:", height=30)
+            self.manejo1.grid(row=2, column = 0)
+            self.manejo2 = CTkLabel(self.fundo,width=300, text= info[2], height=30)
+            self.manejo2.grid(row=2, column = 1)
+            self.entry_manejo = CTkEntry(self.fundo, placeholder_text=info[2])
+            self.entry_manejo.grid(row=2, column = 2)
 
-        #Exibe a quantidade de comida consumida pela vaca diariamente na tela
+            #Exibe a quantidade de comida consumida pela vaca diariamente na tela
 
-        self.comida1 = CTkLabel(self.fundo,width=300, text= "Comida(kg):", height=30)
-        self.comida1.grid(row=3, column = 0)
-        self.comida2 = CTkLabel(self.fundo,width=300, text= info[3], height=30)
-        self.comida2.grid(row=3, column = 1)
-        entry_comida = CTkEntry(self.fundo, placeholder_text=str(info[3]))
-        entry_comida.grid(row=3, column = 2)
+            self.comida1 = CTkLabel(self.fundo,width=300, text= "Comida(kg):", height=30)
+            self.comida1.grid(row=3, column = 0)
+            self.comida2 = CTkLabel(self.fundo,width=300, text= info[3], height=30)
+            self.comida2.grid(row=3, column = 1)
+            self.entry_comida = CTkEntry(self.fundo, placeholder_text=str(info[3]))
+            self.entry_comida.grid(row=3, column = 2)
 
-        #Exibe o peso da vaca na tela
+            #Exibe o peso da vaca na tela
 
-        self.peso1 = CTkLabel(self.fundo,width=300, text= "Peso(kg):", height=30)
-        self.peso1.grid(row=4, column = 0)
-        self.peso2 = CTkLabel(self.fundo,width=300, text= info[4], height=30)
-        self.peso2.grid(row=4, column = 1)
-        entry_peso = CTkEntry(self.fundo, placeholder_text=str(info[4]))
-        entry_peso.grid(row=4, column = 2)
+            self.peso1 = CTkLabel(self.fundo,width=300, text= "Peso(kg):", height=30)
+            self.peso1.grid(row=4, column = 0)
+            self.peso2 = CTkLabel(self.fundo,width=300, text= info[4], height=30)
+            self.peso2.grid(row=4, column = 1)
+            self.entry_peso = CTkEntry(self.fundo, placeholder_text=str(info[4]))
+            self.entry_peso.grid(row=4, column = 2)
 
-        #Exibe o estado de saúde da vaca na tela
+            #Exibe o estado de saúde da vaca na tela
 
-        self.saude1= CTkLabel(self.fundo,width=300, text= "Saúde:", height=30)
-        self.saude1.grid(row=5, column = 0)
-        self.saude2 = CTkLabel(self.fundo,width=300, text= info[7], height=30)
-        self.saude2.grid(row=5, column = 1)
-        entry_saude = CTkEntry(self.fundo, placeholder_text=info[7])
-        entry_saude.grid(row=5, column = 2)
+            self.saude1= CTkLabel(self.fundo,width=300, text= "Saúde:", height=30)
+            self.saude1.grid(row=5, column = 0)
+            self.saude2 = CTkLabel(self.fundo,width=300, text= info[7], height=30)
+            self.saude2.grid(row=5, column = 1)
+            self.entry_saude = CTkEntry(self.fundo, placeholder_text=info[7])
+            self.entry_saude.grid(row=5, column = 2)
 
-        #Exibe o estado de comportamento da vaca na tela
+            #Exibe o estado de comportamento da vaca na tela
 
-        self.comp1 = CTkLabel(self.fundo,width=300, text= "Comportamento:", height=30)
-        self.comp1.grid(row=6, column = 0)
-        self.comp2 = CTkLabel(self.fundo,width=300, text= info[5], height=30)
-        self.comp2.grid(row=6, column = 1)
-        entry_comp = CTkEntry(self.fundo, placeholder_text=info[5])
-        entry_comp.grid(row=6, column = 2)
+            self.comp1 = CTkLabel(self.fundo,width=300, text= "Comportamento:", height=30)
+            self.comp1.grid(row=6, column = 0)
+            self.comp2 = CTkLabel(self.fundo,width=300, text= info[5], height=30)
+            self.comp2.grid(row=6, column = 1)
+            self.entry_comp = CTkEntry(self.fundo, placeholder_text=info[5])
+            self.entry_comp.grid(row=6, column = 2)
 
-        #Exibe o estado da vaca em relação as vacinas da vaca na tela
+            #Exibe o estado da vaca em relação as vacinas da vaca na tela
 
-        self.vacinas1 = CTkLabel(self.fundo,width=300, text= "Vacina:", height=30)
-        self.vacinas1.grid(row=7, column = 0)
-        self.vacinas2 = CTkLabel(self.fundo,width=300, text= info[6], height=30)
-        self.vacinas2.grid(row=7, column = 1)
-        entry_vacinas = CTkEntry(self.fundo, placeholder_text=info[6])
-        entry_vacinas.grid(row=7, column = 2)
+            self.vacinas1 = CTkLabel(self.fundo,width=300, text= "Vacina:", height=30)
+            self.vacinas1.grid(row=7, column = 0)
+            self.vacinas2 = CTkLabel(self.fundo,width=300, text= info[6], height=30)
+            self.vacinas2.grid(row=7, column = 1)
+            self.entry_vacinas = CTkEntry(self.fundo, placeholder_text=info[6])
+            self.entry_vacinas.grid(row=7, column = 2)
 
-        #Exibe o botão de atualizar informações da vaca na tela
+            #Exibe o botão de atualizar informações da vaca na tela
 
-        btn_atualizar = CTkButton(self.fundo,text=("Atualizar"), command=atualizar)
-        btn_atualizar.grid(row=8, column = 1)
-
-        def voltar(self):
-            telamenu(tela)
+            self.btn_atualizar = CTkButton(self.fundo,text=("Atualizar"), command=atualizar)
+            self.btn_atualizar.grid(row=8, column = 1)
+        ids_vacas = [id[0] for id in select("id_vaca", "vacas")]
+        coluna = 1
+        linha = 2
+        for aux1 in range(len(ids_vacas)):
+            info  = botao_vaca(ids_vacas[aux1])
+            info_completa = info_vaca(info[0])
+            self.btvaca = CTkButton(self.fundo2, text=("Identificação: " + str(info[0]) + "\n" + "Comportamento: " + info[1] + "\n" + "Saude: " + info[2]), 
+                                    width=200, command=lambda aux2 = info_completa: janela_vaca(aux2))
+            self.btvaca.place(x=(aux1 + 1)*210, y = linha*20)
+            if coluna % 5 == 0:
+                linha += 1
+            coluna += 1
+    def voltar(self):
+        print("opa")
+        telamenu(tela)
+    
 class telamonitoramento:
     def __init__(self,telamoni):
         self.fundo = CTkFrame(telamoni,width=1200, height= 700,fg_color = marrom)
@@ -190,24 +209,8 @@ class telaredimento:
         self.fundo.grid(row=1,column=0)
         self.btv = CTkButton(self.fundo,text="voltar",width=0, command= self.voltar)
         self.btv.place(x=1,y=0)
-def __init__(self, telab):
-    self.fundo = CTkFrame(telab, width=1200, height= 700, fg_color = marrom)
-    self.fundo.grid(row=1,column=0)
-    self.btv = CTkButton(self.fundo,text="voltar",width=0, command= self.voltar)
-    self.btv.place(x=1,y=0)
-    ids_vacas = [id[0] for id in select("id_vaca", "vacas")]
-    aux2 = 1
-    row = 2
-    for aux1 in range(len(ids_vacas)):
-        info  = botao_vaca(ids_vacas[aux1])
-        info_completa = info_vaca(info[0])
-        self.btvaca = CTkButton(self.fundo, text=("Identificação: " + str(info[0]) + "\n" + "Comportamento: " + info[1] + "\n" + "Saude: " + info[2]), width=200, command=lambda aux2 = info_completa: self.janela_vaca(aux2, tela))
-        self.btvaca.place(x=(aux1 + 1)*210, y = row*20)
-        if aux2 % 5 == 0:
-            row += 1
-        aux2 += 1
-def voltar(self):
-    telamenu(tela)
+    def voltar(self):
+        telamenu(tela)
 #predefinições padrão da janela         
 tela = CTk()
 tela.geometry("1200x700")
