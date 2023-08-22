@@ -54,11 +54,11 @@ def logar(login, senha):
             select("senha", "usuario", "login=" + "'" + login + "'"))
         # Checa se a senha bate com o do banco de dados
         if senha in senha_banco:
-            return "Logado!"
+            return True
         else:
             return "Senha Errada!"
     else:
-        return "username não cadastrado!"
+        return "Login não cadastrado!"
 
 
 # Função para formatação do dados recebido pela query do banco de dados
@@ -72,14 +72,13 @@ def formatacao_btn(query):
 
 
 def botao_vaca(id):
-    valores = "id_vaca, vacinas, saude"
+    valores = "id_vaca, comportamento, saude"
     query = select(valores, "vacas", "id_vaca = " + str(id))
     return (formatacao_btn(query)[0])
 
 # Puxa as informações completas das vacas
 
-
-def info_vaca(id):
+def info_vaca(id,where = None):
     valores = "*"
     query = select(valores, "vacas", "id_vaca=" + str(id))
     return (formatacao_btn(query)[0])
@@ -92,6 +91,21 @@ def atualizar_vaca(id, manejo, comida, peso, comportamento, vacinas, saude):
                "comportamento": comportamento, "vacinas": vacinas, "saude": saude}
     try:
         update(valores, "vacas", "id_vaca = " + str(id))
-        return "atualizado"
+        return True
     except:
-        return "Não foi possível executar a atualização"
+        return "Não foi possível executar a atualização!"
+
+def deletar_vaca(id):
+    try:
+        delete("vacas", "id_vaca="+str(id))
+        return True
+    except:
+        return "Falha no processo de exclusão"
+    
+def adicionar_vaca(infos):
+    valores = "(" + "DEFAULT, 1, '" + "', '".join([str(aux) for aux in infos]) + "')"
+    try:
+        insert(valores, "vacas")
+        return True
+    except:
+        return "Falha no processo de adição"
