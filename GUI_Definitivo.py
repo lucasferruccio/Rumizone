@@ -8,7 +8,8 @@ from pathlib import Path
 from funcApp import *
 
 verde_fundo = "#172526"
-verde_botao = "#3d9079"
+verde_botao = "#47a98e"
+verde_botao_fundo = "#2e6d5c"
 branco = "#FFFFFF"
 preto = "#000000"
 verde = "#20CD8D"
@@ -41,8 +42,8 @@ class rumizone(CTk):
 
     def login(self):
         #Informações do Frame de Login
-        self.frame_um = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
-        self.frame_um.pack()
+        self.frame_login = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
+        self.frame_login.pack()
 
         #Logo Rumizone
         custom_font_title = CTkFont(family="Roboto", size=40, weight="bold")
@@ -90,8 +91,8 @@ class rumizone(CTk):
         self.destruir_frames()
 
         #Informações do Frame do menu
-        self.menu = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
-        self.menu.pack()
+        self.frame_menu = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
+        self.frame_menu.pack()
 
         #Logo Rumizone
         custom_font_title = CTkFont(family="Roboto", size=40, weight="bold")
@@ -127,25 +128,358 @@ class rumizone(CTk):
         self.destruir_frames()
 
         #Informações do Frame dos animais
-        self.menu = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
-        self.menu.pack()
+        self.animais_Frame = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
+        self.animais_Frame.grid(row=0,column=0)
 
         #Coleta de alguns dados para a criação dos botões, para retirar a quantidade e os ids das vacas no DB
         
         ids_vacas = [id[0] for id in select("id_vaca", "vacas")]
-        #Botão bonito:
-        ''' 
-        self.
 
         #Criação de botões iguais aos numéros de ids(único para cada animal)
+        aux = 0 #Conta o número de botões por linha
+        aux_x = 0 #Ajuda a organizar o valor de x do botão
+        aux_y = 1 #Ajuda a organizar o valor de y do botão
         for contagem_vacas in range(len(ids_vacas)):
+            if (contagem_vacas % 4) == 0 and contagem_vacas != 0:
+                aux_x = 0
+                aux_y+=10
             #Coleta de dados básicos para a aparição no botão
             info_vaca_botao = botao_vaca(ids_vacas[contagem_vacas])
             #Coleta de todos os dados das vacas
             info_vaca_completa = info_vaca(info_vaca_botao[0])
             #Criação dos botões
-            self.btn_vaca = CTkButton(master=self.root, text=("teste"), image=vaca_img, compound="top", width=200, height=200, fg_color=verde_botao)
-            self.btn_vaca.grid() '''
+            self.btn_vaca = CTkButton(master=self.animais_Frame, text=("Cód: " + str(info_vaca_botao[0]) + "\n" + "Comportamento: " + info_vaca_botao[1] + "\n" + "Status de Saúde: " + info_vaca_botao[2]),
+                                       image=vaca_img, compound="top", width=200, height=180, 
+                                      fg_color=verde_botao,border_width= 3, border_color=verde_botao_fundo,
+                                      command=lambda info_vaca = info_vaca_completa: self.informacoes_vacas(info_vaca))
+            self.btn_vaca.place(x=(aux_x + 1)*215, y=(aux_y*20))
+            aux_x+=1
+            aux+=1
+
+        #Botão para voltar ao menu
+        self.btn_voltar_menu = CTkButton(master=self.root, text="Voltar", fg_color="#123529", width= 75,height= 25, command=self.voltar_menu)
+        self.btn_voltar_menu.place(x=10,y=10)
+
+        #Botão voltar para a lista de animais
+
+        self.btn_cadastrar_animal = CTkButton(master=self.root, text="Adicionar", fg_color="#123529", width= 75,height= 25, 
+                                              command=self.cadastro_animal)
+        self.btn_cadastrar_animal.place(x=1115,y=10)
+
+    #Função que chama o frame do menu
+    def voltar_menu(self):
+        self.menu()
+
+    #Vai mostrar todas as informações sobre a vaca escolhida
+
+    def informacoes_vacas(self, info):
+        #Fecha o frame passado
+        self.destruir_frames()
+
+        #Informações do frame de vaca selecionada
+        self.frame_info_vaca = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
+        self.frame_info_vaca.pack()
+
+        self.frame_info = CTkFrame(master=self.frame_info_vaca, width=600, height=600, fg_color=verde_botao_fundo, border_width=2, border_color=verde_botao_fundo)
+        self.frame_info.place(x=300, y= 50)
+        custom_font_label = CTkFont(family="Roboto", size=15, weight="bold")
+
+        #Informações da vaca
+
+        #Informações colunas
+
+        self.info_1 = CTkLabel(master=self.frame_info,width=300, text= "Informação", height=50, font=custom_font_label, fg_color="#1B4D3B")
+        self.info_1.place(x=0,y=0)
+        self.info_2 = CTkLabel(master=self.frame_info,width=300, text= "Atual", height=50, font=custom_font_label, fg_color="#1B4D3B")
+        self.info_2.place(x=300,y=0)
+
+        #Codigo identificação vaca
+
+        self.cod_identificacao_1 = CTkLabel(master=self.frame_info,width=300, text= "Código de Identificação:", height=50, font=custom_font_label)
+        self.cod_identificacao_1.place(x=0,y=50)
+        self.cod_identificacao_2 = CTkLabel(master=self.frame_info,width=300, text= info[0], height=50, font=custom_font_label, text_color="#A9A9A9")
+        self.cod_identificacao_2.place(x=300,y=50)
+
+        #Manejo
+
+        self.manejo_1 = CTkLabel(master=self.frame_info,width=300, text= "Manejo:", height=50, font=custom_font_label)
+        self.manejo_1.place(x=0,y=100)
+        self.manejo_2 = CTkLabel(master=self.frame_info,width=300, text= info[2], height=50, font=custom_font_label, text_color="#A9A9A9")
+        self.manejo_2.place(x=300,y=100)
+
+        #Quantidade de Comida
+
+        self.comida_1 = CTkLabel(master=self.frame_info,width=300, text= "Comida(kg):", height=50, font=custom_font_label)
+        self.comida_1.place(x=0,y=150)
+        self.comida_2 = CTkLabel(master=self.frame_info,width=300, text= info[3], height=50, font=custom_font_label, text_color="#A9A9A9")
+        self.comida_2.place(x=300,y=150)
+
+        #O peso da vaca
+
+        self.peso_1 = CTkLabel(master=self.frame_info,width=300, text= "Peso(kg):", height=50, font=custom_font_label)
+        self.peso_1.place(x=0,y=200)
+        self.peso_2 = CTkLabel(master=self.frame_info,width=300, text= info[4], height=50, font=custom_font_label, text_color="#A9A9A9")
+        self.peso_2.place(x=300,y=200)
+
+        #Estado de saude da vaca
+
+        self.saude_1= CTkLabel(master=self.frame_info,width=300, text= "Saúde:", height=50, font=custom_font_label)
+        self.saude_1.place(x=0,y=250)
+        self.saude_2 = CTkLabel(master=self.frame_info,width=300, text= info[7], height=50, font=custom_font_label, text_color="#A9A9A9")
+        self.saude_2.place(x=300,y=250)
+
+        #Estado de comportamento da vaca
+
+        self.comportamento_1 = CTkLabel(master=self.frame_info,width=300, text= "Comportamento:", height=50, font=custom_font_label)
+        self.comportamento_1.place(x=0,y=300)
+        self.comportamento_2 = CTkLabel(master=self.frame_info,width=300, text= info[5], height=50, font=custom_font_label, text_color="#A9A9A9")
+        self.comportamento_2.place(x=300,y=300)
+
+        #Exibe a situação das vacas em relação as vacinas
+
+        self.vacinas_1 = CTkLabel(master=self.frame_info,width=300, text= "Vacina:", height=50, font=custom_font_label)
+        self.vacinas_1.place(x=150,y=350)
+        self.vacinas_2 = CTkTextbox(master=self.frame_info, width=500, height=125, fg_color="#1B4D3B")
+        self.vacinas_2.place(x=50, y=400)
+        self.vacinas_2.insert("0.0", info[6])
+
+        #Botão para deletar o animal
+        self.btn_deletar_animal = CTkButton(master=self.frame_info, text="Deletar", fg_color="#123529", width= 100,height= 50,
+                                              command=lambda id = info[0]: self.deletar(id))
+        self.btn_deletar_animal.place(x=110,y=530)
+
+        #Botão para atualizar
+        self.btn_atualizar_animal = CTkButton(master=self.frame_info, text="Atualizar", fg_color="#123529", width= 100, height= 50,
+                                              command=lambda info_vaca = info: self.atualizar_vacas(info_vaca))
+        self.btn_atualizar_animal.place(x=410,y=530)
+
+        #Botão voltar para a lista de animais
+
+        self.btn_voltar_animal = CTkButton(master=self.root, text="Voltar", fg_color="#123529", width= 75,height= 25, command=self.voltar_animal_escolha)
+        self.btn_voltar_animal.place(x=10,y=10)
+
+    #Volta para a tela de escolha do animal
+
+    def voltar_animal_escolha(self):
+        self.animais()
+
+    #Deleta o animal
+
+    def deletar(self, id):
+        resposta = deletar_vaca(id)
+        print(id)
+        print(resposta)
+        if resposta == True:
+            messagebox.showinfo("Deletar", "Animal removido com sucesso.")
+            self.animais()
+        else:
+            messagebox.showerror("Deletar", resposta)
+
+    def cadastro_animal(self):
+        #Fecha o frame passado
+        self.destruir_frames()
+
+        #Informações do frame de vaca selecionada
+        self.frame_cadastrar_vaca = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
+        self.frame_cadastrar_vaca.pack()
+
+        self.frame_info = CTkFrame(master=self.frame_cadastrar_vaca, width=600, height=600, fg_color=verde_botao_fundo, border_width=2, border_color=verde_botao_fundo)
+        self.frame_info.place(x=300, y= 50)
+        custom_font_label = CTkFont(family="Roboto", size=15, weight="bold")
+
+        #Informações da vaca:
+
+        #Informações colunas
+
+        self.info_1 = CTkLabel(master=self.frame_info,width=600, text= "PARA CADASTRAR PREENCHA TODOS OS CAMPOS!!", height=50, font=custom_font_label, fg_color="#1B4D3B")
+        self.info_1.place(x=0,y=0)
+
+        #Manejo
+
+        self.manejo_1 = CTkLabel(master=self.frame_info,width=300, text= "Manejo:", height=50, font=custom_font_label)
+        self.manejo_1.place(x=0,y=100)
+        self.manejo_2 = CTkEntry(master=self.frame_info,width=300,  height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.manejo_2.place(x=300,y=100)
+
+        #Quantidade de Comida
+
+        self.comida_1 = CTkLabel(master=self.frame_info,width=300, text= "Comida(kg):", height=50, font=custom_font_label)
+        self.comida_1.place(x=0,y=150)
+        self.comida_2 = CTkEntry(master=self.frame_info,width=300, height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.comida_2.place(x=300,y=150)
+
+        #O peso da vaca
+
+        self.peso_1 = CTkLabel(master=self.frame_info,width=300, text= "Peso(kg):", height=50, font=custom_font_label)
+        self.peso_1.place(x=0,y=200)
+        self.peso_2 = CTkEntry(master=self.frame_info,width=300,  height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.peso_2.place(x=300,y=200)
+
+        #Estado de saude da vaca
+
+        self.saude_1= CTkLabel(master=self.frame_info,width=300, text= "Saúde:", height=50, font=custom_font_label)
+        self.saude_1.place(x=0,y=250)
+        self.saude_2 = CTkEntry(master=self.frame_info,width=300, height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.saude_2.place(x=300,y=250)
+
+        #Estado de comportamento da vaca
+
+        self.comportamento_1 = CTkLabel(master=self.frame_info,width=300, text= "Comportamento:", height=50, font=custom_font_label)
+        self.comportamento_1.place(x=0,y=300)
+        self.comportamento_2 = CTkEntry(master=self.frame_info,width=300, height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.comportamento_2.place(x=300,y=300)
+
+        #Exibe a situação das vacas em relação as vacinas
+
+        self.vacinas_1 = CTkLabel(master=self.frame_info,width=300, text= "Vacina:", height=50, font=custom_font_label)
+        self.vacinas_1.place(x=150,y=350)
+        self.vacinas_2 = CTkTextbox(master=self.frame_info, width=500, height=125, fg_color="#1B4D3B")
+        self.vacinas_2.place(x=50, y=400)
+        self.vacinas_2.insert("0.0", "")
+
+        #Botão para cancelar e voltar as informações do animal
+        self.btn_cancelar_cadastro = CTkButton(master=self.frame_info, text="Cancelar", fg_color="#123529", width= 100,height= 50,
+                                            command=self.animais)
+        self.btn_cancelar_cadastro.place(x=110,y=530)
+
+        
+
+        #Botão para salvar
+        self.btn_cadastrar_animal = CTkButton(master=self.frame_info, text="Cadastrar", fg_color="#123529", width= 100,height= 50,
+                                              command=self.cadastrar_animal)
+        self.btn_cadastrar_animal.place(x=410,y=530)
+
+    def cadastrar_animal(self):
+        #Coletando as informações a serem passadas
+        valores = []
+        valores.append(self.manejo_2.get())
+        valores.append(self.comida_2.get())
+        valores.append(self.peso_2.get())
+        valores.append(self.comportamento_2.get())
+        valores.append(self.vacinas_2.get("1.0", "end-1c"))
+        valores.append(self.saude_2.get())
+        #Manda pro banco de dados
+        resposta = adicionar_vaca(valores)
+        if resposta == True:
+            messagebox.showinfo("Cadastro Animal", "O animal foi cadastrado com sucesso!")
+            self.animais()
+        else:
+            messagebox.showerror("Cadastro Animal", resposta)
+        
+
+        
+    def atualizar_vacas(self, info):
+        #Fecha o frame passado
+        self.destruir_frames()
+
+        #Informações do frame de vaca selecionada
+        self.frame_atualizar_vaca = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
+        self.frame_atualizar_vaca.pack()
+
+        self.frame_info = CTkFrame(master=self.frame_atualizar_vaca, width=600, height=600, fg_color=verde_botao_fundo, border_width=2, border_color=verde_botao_fundo)
+        self.frame_info.place(x=300, y= 50)
+        custom_font_label = CTkFont(family="Roboto", size=15, weight="bold")
+
+        #Informações da vaca:
+
+        #Informações colunas
+
+        self.info_1 = CTkLabel(master=self.frame_info,width=600, text= "PARA ATUALIZAR PREENCHA TODOS OS CAMPOS!!", height=50, font=custom_font_label, fg_color="#1B4D3B")
+        self.info_1.place(x=0,y=0)
+
+        #Codigo identificação vaca
+
+        self.cod_identificacao_1 = CTkLabel(master=self.frame_info,width=300, text= "Código de Identificação:", height=50, font=custom_font_label)
+        self.cod_identificacao_1.place(x=0,y=50)
+        self.cod_identificacao_2 = CTkLabel(master=self.frame_info,width=300, text= info[0], height=50, font=custom_font_label, text_color="#A9A9A9")
+        self.cod_identificacao_2.place(x=300,y=50)
+
+        #Manejo
+
+        self.manejo_1 = CTkLabel(master=self.frame_info,width=300, text= "Manejo:", height=50, font=custom_font_label)
+        self.manejo_1.place(x=0,y=100)
+        self.manejo_2 = CTkEntry(master=self.frame_info,width=300, placeholder_text=info[2], height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.manejo_2.place(x=300,y=100)
+
+        #Quantidade de Comida
+
+        self.comida_1 = CTkLabel(master=self.frame_info,width=300, text= "Comida(kg):", height=50, font=custom_font_label)
+        self.comida_1.place(x=0,y=150)
+        self.comida_2 = CTkEntry(master=self.frame_info,width=300, placeholder_text= info[3], height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.comida_2.place(x=300,y=150)
+
+        #O peso da vaca
+
+        self.peso_1 = CTkLabel(master=self.frame_info,width=300, text= "Peso(kg):", height=50, font=custom_font_label)
+        self.peso_1.place(x=0,y=200)
+        self.peso_2 = CTkEntry(master=self.frame_info,width=300, placeholder_text=info[4], height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.peso_2.place(x=300,y=200)
+
+        #Estado de saude da vaca
+
+        self.saude_1= CTkLabel(master=self.frame_info,width=300, text= "Saúde:", height=50, font=custom_font_label)
+        self.saude_1.place(x=0,y=250)
+        self.saude_2 = CTkEntry(master=self.frame_info,width=300, placeholder_text=info[7], height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.saude_2.place(x=300,y=250)
+
+        #Estado de comportamento da vaca
+
+        self.comportamento_1 = CTkLabel(master=self.frame_info,width=300, text= "Comportamento:", height=50, font=custom_font_label)
+        self.comportamento_1.place(x=0,y=300)
+        self.comportamento_2 = CTkEntry(master=self.frame_info,width=300, placeholder_text=info[5], height=50, font=custom_font_label, text_color="#A9A9A9", fg_color="#1B4D3B")
+        self.comportamento_2.place(x=300,y=300)
+
+        #Exibe a situação das vacas em relação as vacinas
+
+        self.vacinas_1 = CTkLabel(master=self.frame_info,width=300, text= "Vacina:", height=50, font=custom_font_label)
+        self.vacinas_1.place(x=150,y=350)
+        self.vacinas_2 = CTkTextbox(master=self.frame_info, width=500, height=125, fg_color="#1B4D3B")
+        self.vacinas_2.place(x=50, y=400)
+        self.vacinas_2.insert("0.0", info[6])
+
+        #Botão para cancelar e voltar as informações do animal
+        self.btn_deletar_animal = CTkButton(master=self.frame_info, text="Cancelar", fg_color="#123529", width= 100,height= 50,
+                                            command=lambda info_vaca = info: self.voltar_animal(info_vaca))
+        self.btn_deletar_animal.place(x=110,y=530)
+
+        
+
+        #Botão para salvar
+        self.btn_atualizar_animal = CTkButton(master=self.frame_info, text="Salvar", fg_color="#123529", width= 100,height= 50,
+                                              command=lambda id = info[0]: self.atualizar_dados_vaca(id))
+        self.btn_atualizar_animal.place(x=410,y=530)
+
+    #Volta para a tela do animal escolhido
+
+    def voltar_animal(self, info):
+        self.informacoes_vacas(info)
+
+    #Atualiza as informações do animal no DB
+    def atualizar_dados_vaca(self, id):
+        #Coletando as informações a serem passadas
+        manejo = self.manejo_2.get()
+        comida = self.comida_2.get()
+        peso = self.peso_2.get()
+        comportamento = self.comportamento_2.get()
+        vacinas = self.vacinas_2.get("1.0", "end-1c")
+        saude = self.saude_2.get()
+        #Manda pro banco de dados
+        resposta = atualizar_vaca(id, manejo, comida, peso, comportamento, vacinas, saude)
+        
+        #Caso o banco de dadso tenha sido atualizado ele exibe uma mensagem dizendo que foi possível atualizar
+        if resposta == True:
+            self.animais()
+            messagebox.showinfo("Atualização", "Atualização concluída!")
+        else:
+            #Se não conseguir mostra uma mensagem de erro
+            messagebox.showerror("Atualização", resposta)
+        
+
+
+        
+       
+
+
 
 #Carregamento das imagens:
 path = os.path.dirname(__file__)
@@ -155,7 +489,7 @@ btn_conta = CTkImage(Image.open(pathFinal + "/caixa conta.png"), size=(200,200))
 btn_animais = CTkImage(Image.open(pathFinal + "/caixa_boi.png"), size=(200,200))
 btn_monitoramento = CTkImage(Image.open(pathFinal + "/caixa monitoramento.png"), size=(200,200))
 btn_registros = CTkImage(Image.open(pathFinal + "/caixa_rendimento.png"), size=(200,200))
-vaca_img = CTkImage(Image.open(pathFinal + "/vaca.png"), size=(100,100))
+vaca_img = CTkImage(Image.open(pathFinal + "/vaca.png"), size=(50,50))
     
         
 #Iniciação do sistema, segundo Thiago é bom manter ele assim.
