@@ -59,6 +59,13 @@ def logar(login, senha):
             return "Senha Errada!"
     else:
         return "Login não cadastrado!"
+    
+#puxa o id do usuario usando o login
+
+def puxar_id(login):
+    query = select("id_usuario","usuario", "login=" + "'" + login + "'")
+    id_usuario = formatacao_login(query)
+    return id_usuario
 
 
 # Função para formatação do dados recebido pela query do banco de dados
@@ -67,6 +74,18 @@ def formatacao_btn(query):
     aux = []
     aux.append(query[0])
     return aux
+
+#Puxa informações da conta
+
+def info_conta(id_conta):
+    valores = "nome, login, cargo, fazenda"
+    query = select(valores,"usuario", "id_usuario= "+ str(id_conta) )
+    return(formatacao_btn(query)[0])
+
+def info_quantidade_animais(fazenda):
+    valor = "id_vaca"
+    query = select(valor,"vacas", "fazenda_id=" + str(fazenda))
+    return formatacao_login(query)
 
 # Puxa e formata os valores para serem dispostos nos botões
 
