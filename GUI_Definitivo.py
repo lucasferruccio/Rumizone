@@ -80,6 +80,8 @@ class rumizone(CTk):
     def verificar(self):
         result_login = logar(self.cxlogin.get(), self.cxsenha.get())
         if result_login == True:
+            global id_usuario 
+            id_usuario = puxar_id(self.cxlogin.get())
             self.menu()
         else:
             messagebox.showerror("Erro no login!", result_login)
@@ -101,7 +103,7 @@ class rumizone(CTk):
 
         #Botão para o Frame da Conta
 
-        self.btconta = CTkButton(master=self.root, image=btn_conta,text="",fg_color=verde_fundo, width= 100,height= 70)
+        self.btconta = CTkButton(master=self.root, image=btn_conta,text="",fg_color=verde_fundo, width= 100,height= 70, command=self.menu_conta)
         self.btconta.place(x=300,y=100)
 
         #Botão para o Frame dos animais
@@ -116,6 +118,43 @@ class rumizone(CTk):
         #Botão para o Frame de Análise Comportamental
         self.btrendimento = CTkButton(master=self.root, image=btn_registros,text="", fg_color=verde_fundo, width= 100,height= 70)
         self.btrendimento.place(x=650,y=380)
+
+#Conta:
+    def menu_conta(self):
+        #Fecha o frame passado
+        self.destruir_frames()
+
+        #Informações do Frame do menu_conta
+        self.menu_conta_Frame = CTkFrame(master=self.root, width=1200, height=700, fg_color=verde_fundo)
+        self.menu_conta_Frame.grid(row=0,column=0)
+
+        #Informações da conta
+        
+        informacoes = info_conta(id_usuario[0])
+        quantidade_animais = info_quantidade_animais(informacoes[3])
+
+        #frame no meio da tela
+
+        custom_font_label = CTkFont(family="Roboto", size=20, weight="bold")
+        self.frame_info_conta = CTkFrame(master=self.menu_conta_Frame, width=470, height=600, fg_color=verde, border_width=2, border_color=verde)
+        self.frame_info_conta.place(x=370, y= 50)
+        self.texto_nome = CTkLabel(master=self.frame_info_conta, text="Nome: " + informacoes[0],font=custom_font_label)
+        self.texto_nome.place(x=20,y=50)
+        self.texto_login = CTkLabel(master=self.frame_info_conta, text="Login: " + informacoes[1],font=custom_font_label)
+        self.texto_login.place(x=20,y=110)
+        self.texto_cargo = CTkLabel(master=self.frame_info_conta, text="Cargo: " + informacoes [2],font=custom_font_label)
+        self.texto_cargo.place(x=20,y=170)
+        self.texto_fazenda = CTkLabel(master=self.frame_info_conta, text="Quant. animais: " + str(len(quantidade_animais)),font=custom_font_label)
+        self.texto_fazenda.place(x=20,y=230)
+        
+
+        
+
+
+        #botão para voltar para o menu
+        self.btn_voltar_menu = CTkButton(master=self.root, text="Voltar", fg_color="#123529", width= 75,height= 25, command=self.voltar_menu)
+        self.btn_voltar_menu.place(x=10,y=10)
+
 
     #Animais:
 
