@@ -78,14 +78,10 @@ def formatacao_btn(query):
 #Puxa informações da conta
 
 def info_conta(id_conta):
-    valores = "nome, login, cargo, fazenda"
+    valores = "nome, cargo, cpf, email, endereco, login"
     query = select(valores,"usuario", "id_usuario= "+ str(id_conta) )
     return(formatacao_btn(query)[0])
 
-def info_quantidade_animais(fazenda):
-    valor = "id_vaca"
-    query = select(valor,"vacas", "fazenda_id=" + str(fazenda))
-    return formatacao_login(query)
 
 # Puxa e formata os valores para serem dispostos nos botões
 
