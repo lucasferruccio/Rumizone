@@ -48,6 +48,19 @@ class rumizone(CTk):
     # Frame inicial
 
     def login(self):
+        #Sistema de lembrar o login
+        global login_usuario
+
+        #Busca no banco de dados a informação de se foi escolhido manter o login
+        dados_login = select("keeplogin, login", "keeplogin", "id=1")
+
+        #Se for verdadeiro, resultado igual a 1 ele coleta o ultimo login
+        if dados_login[0][0] == 1:
+            user_placehold = dados_login[0][1]
+            login_usuario = user_placehold
+        else:
+            user_placehold = "Nome de Usuário"
+
         self.destruir_frames()
         # Informações do Frame de Login
         self.frame_login = CTkFrame(
@@ -80,7 +93,7 @@ class rumizone(CTk):
 
         # Caixa de Login
         self.cxlogin = CTkEntry(
-            master=self.frame_login, width=300, height=40, placeholder_text="Nome de Usuário")
+            master=self.frame_login, width=300, height=40, placeholder_text=user_placehold)
         self.cxlogin.place(x=810, y=200)
         self.txt_alertalogin = CTkLabel(
             master=self.frame_login, text="*O campo nome de usuario é de carater obrigatorio.", text_color="green", fg_color="#1C1C1C")
@@ -222,10 +235,23 @@ class rumizone(CTk):
     # Verifica se o usuário é cadastrado e se a senha é válida. Caso negado, um erro será impresso na tela
     def verificar(self):
         global login_usuario
-        login_usuario = self.cxlogin.get()
+
+        #Coleta informações do frame de login
+        #Checa se o o login foi digitado caso negativo, ele utilizara o login do banco de dados
+        if len(self.cxlogin.get()) != 0:
+            login_usuario = self.cxlogin.get()
         senha_usuario = self.cxsenha.get()
+        checkbox = self.checkbox.get()
         result_login = logar(login_usuario, senha_usuario)
+
+        #Checa se o login foi possível e se ultimo login foi marcado para se lembrar
         if result_login == True:
+            if checkbox == 1:
+                login_true = {"login": login_usuario, "keeplogin": "1"}
+                update(login_true, "keeplogin", "id=1")
+            else:
+                login_false = {"keeplogin": "0"}
+                update(login_false, "keeplogin", "id=1")
             self.menu()
         else:
             messagebox.showerror("Erro no login!", result_login)
@@ -269,11 +295,16 @@ class rumizone(CTk):
                                      fg_color=verde_fundo, width=100, height=7, command=self.relatorios)
         self.btregistros.place(x=300, y=380)
 
-    # Minha conta:
-    # Botão para o Frame de Análise Comportamental
+    
+        # Botão para o Frame de Análise Comportamental
         self.btrendimento = CTkButton(master=self.root, image=btn_animais, text="",
                                       fg_color=verde_fundo, width=100, height=70, command=self.animais)
         self.btrendimento.place(x=650, y=380)
+
+        # Botão para sair da conta
+        self.btn_sair = CTkButton(master=self.root, text="Voltar", fg_color="#123529", width=75, height=25, command=self.login)
+        self.btn_sair.place(x=10, y=10)
+    # Minha conta:
 
     # Conta:
     def menu_conta(self):
