@@ -16,34 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `vacas`
+-- Table structure for table `keeplogin`
 --
 
-DROP TABLE IF EXISTS `vacas`;
+DROP TABLE IF EXISTS `keeplogin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `vacas` (
-  `id_vaca` int NOT NULL AUTO_INCREMENT,
-  `fazenda_id` int NOT NULL,
-  `manejo` varchar(50) NOT NULL,
-  `comida` int NOT NULL,
-  `peso` int NOT NULL,
-  `comportamento` varchar(50) NOT NULL,
-  `vacinas` varchar(300) NOT NULL,
-  `saude` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_vaca`),
-  UNIQUE KEY `idvacas_UNIQUE` (`id_vaca`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `keeplogin` (
+  `id` int NOT NULL,
+  `keeplogin` tinyint NOT NULL,
+  `login` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `vacas`
+-- Dumping data for table `keeplogin`
 --
 
-LOCK TABLES `vacas` WRITE;
-/*!40000 ALTER TABLE `vacas` DISABLE KEYS */;
-INSERT INTO `vacas` VALUES (21,1,'20/08/2023',16,800,'Padrão','Em dia','Ok');
-/*!40000 ALTER TABLE `vacas` ENABLE KEYS */;
+LOCK TABLES `keeplogin` WRITE;
+/*!40000 ALTER TABLE `keeplogin` DISABLE KEYS */;
+INSERT INTO `keeplogin` VALUES (1,0,'gabrielsalgado');
+/*!40000 ALTER TABLE `keeplogin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
