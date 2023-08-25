@@ -1,7 +1,7 @@
 import MySQLdb
 
 host = "localhost"
-user = "teste"
+user = "rumizone"
 password = "123456"
 db = "rumizonedb"
 port = 3306
@@ -19,7 +19,6 @@ def insert(valores, tabela, campo=None):
     if (campo):
         query = query + " (" + campo + ") "
     query = query + " VALUES " + str(valores)
-    print(query)
     c.execute(query)
     con.commit()
 
@@ -45,7 +44,6 @@ def update(valores, tabela, local=None):
     query = "UPDATE " + tabela + " SET " + ",".join([campo + " = '" + valor + "'" for campo,valor in valores.items()])
     if (local):
         query = query + " WHERE " + local
-    print(query)
     c.execute(query)
     con.commit()
 
@@ -56,6 +54,3 @@ def delete(tabela, local):
     query = "DELETE FROM " + tabela + " WHERE " + local
     c.execute(query)
     con.commit()
-
-
-
